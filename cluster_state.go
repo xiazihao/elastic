@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/olivere/elastic/uritemplates"
 )
@@ -235,17 +236,24 @@ type clusterStateRoutingTable struct {
 type Shards map[string][]Shard
 
 type Shard struct {
-	State          string          `json:"state"`
-	Primary        bool            `json:"primary"`
-	Node           string          `json:"node"`
-	RelocatingNode string          `json:"relocating_node"`
-	Shard          int             `json:"shard"`
-	Index          string          `json:"index"`
-	RecoverySource *recoverySource `json:"recovery_source"`
-	UnassignedInfo *unassignedInfo `json:"unassigned_info"`
+	State          string               `json:"state"`
+	Primary        bool                 `json:"primary"`
+	Node           string               `json:"node"`
+	RelocatingNode string               `json:"relocating_node"`
+	Shard          int                  `json:"shard"`
+	Index          string               `json:"index"`
+	RecoverySource *recoverySource      `json:"recovery_source"`
+	UnassignedInfo *ShardUnassignedInfo `json:"unassigned_info"`
 }
 type recoverySource struct {
 	Type string `json:"type"`
+}
+
+type ShardUnassignedInfo struct {
+	Reason           string    `json:"reason"`
+	At               time.Time `json:"at"`
+	Delayed          bool      `json:"delayed"`
+	AllocationStatus string    `json:"allocation_status"`
 }
 
 type Index struct {
