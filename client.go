@@ -1720,6 +1720,10 @@ func (c *Client) CatIndices() *CatIndicesService {
 	return NewCatIndicesService(c)
 }
 
+func (c *Client) CatThreadPool() *CatThreadPoolService {
+	return NewCatThreadPoolService(c)
+}
+
 // -- Ingest APIs --
 
 // IngestPutPipeline adds pipelines and updates existing pipelines in
